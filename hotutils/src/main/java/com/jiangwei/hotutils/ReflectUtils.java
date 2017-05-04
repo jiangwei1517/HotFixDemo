@@ -45,9 +45,6 @@ public class ReflectUtils {
                 // ======== 以下是测试是否成功注入 AndroidStudio因为开启了instant run 即使注入失败也不会提示=================
                 Object object = getField(pathList.getClass(), "dexElements", pathList);
                 int length = Array.getLength(object);
-                for (Object o : (Object[]) object) {
-                    System.out.println(o);
-                }
                 Log.e("BugFixApplication", "length = " + length);
 
             } catch (ClassNotFoundException e) {

@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+apply plugin: com.jiangwei.plugin.Register
+
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.jiangwei.hotfixdemo"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        def dexTask = project.tasks.findByName("transformClassesWithDexForDebug")
+        def preDexTask = project.tasks.findByName("transformClassesWithPreDexForDebug")
+        if (preDexTask) {
+            project.logger.error "======preDexTask======"
+            preDexTask.inputs.files.files.each { file ->
+                project.logger.error "inputs =$file.absolutePath"
+            }
+
+            preDexTask.outputs.files.files.each { file ->
+                project.logger.error "outputs =$file.absolutePath"
+            }
+        }
+        if (dexTask) {
+            project.logger.error "======dexTask======"
+            dexTask.inputs.files.files.each { file ->
+                project.logger.error "inputs =$file.absolutePath"
+            }
+
+            dexTask.outputs.files.files.each { file ->
+                project.logger.error "outputs =$file.absolutePath"
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile project(':hotutils')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    testCompile 'junit:junit:4.12'
+}
+

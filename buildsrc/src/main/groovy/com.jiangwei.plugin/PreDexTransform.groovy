@@ -14,6 +14,7 @@ public class PreDexTransform extends Transform {
         this.project = project
         def libPath = project.project(':tagdex').buildDir.absolutePath.concat(File.separator + "intermediates" + File.separator + "classes" + File.separator + "debug")
         Inject.appendClassPath(libPath)
+        // 解决Context报错
         Inject.appendClassPath("/Users/baidu/Library/Android/sdk/platforms/android-24/android.jar")
     }
 

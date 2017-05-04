@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test() {
-        Cat cat = new Cat(this);
-        cat.say();
+        Person person = new Person(this);
+        person.name();
     }
 }
